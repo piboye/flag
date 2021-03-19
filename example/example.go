@@ -16,8 +16,5 @@ func init() {
 }
 
 func main() {
-
-	//log.Printf("testb %t", *testb)
 	flag.Parse()
-	//log.Printf("testb %t", *testb)
 }

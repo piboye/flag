@@ -83,8 +83,9 @@ func tryParseFile(filename string, values map[string]string) error {
 	}
 }
 
+var flagfile = String("flagfile", "flagfile", "parse flag from file,  supported file-format: flagifle/conf.json/conf.toml/conf.yaml")
+
 func preParseFile(values map[string]string) bool {
-	fp := String("flagfile", "flagfile", "flagfile support flagifle/conf.json/conf.toml/conf.yaml")
 	filename := getRawFlagValue("flagfile")
 
 	if len(filename) > 0 {
@@ -100,7 +101,7 @@ func preParseFile(values map[string]string) bool {
 		return true
 	}
 
-	filename = *fp
+	filename = *flagfile
 	if len(filename) <= 0 {
 		return false
 	}
