@@ -3,7 +3,6 @@ package flag
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 
 	"github.com/pelletier/go-toml"
 )
@@ -60,30 +59,4 @@ func tryParseToml(filename string, values map[string]string) error {
 
 	dftToml(conf, "", values)
 	return nil
-}
-
-func preParseToml(values map[string]string) bool {
-	var fp = String("flagtoml", "", "tomlfile for flag")
-	//var fp = String("flagtoml", "config.toml", "tomlfile for flag")
-
-	filename := getRawFlagValue("flagtoml")
-
-	if len(filename) > 0 {
-		err := tryParseToml(filename, values)
-		if err != nil {
-			log.Fatalf("flagtoml load toml file failed, [file=%s][err=%+v]", filename, err)
-		}
-		return true
-	}
-
-	//flagfile := CommandLine.actual["flagtoml"]
-
-	//filename = flagfile.Value.String()
-	filename = *fp
-	if len(filename) <= 0 {
-		return false
-	}
-
-	err := tryParseToml(filename, values)
-	return err == nil
 }

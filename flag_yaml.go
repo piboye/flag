@@ -3,7 +3,6 @@ package flag
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 
 	"gopkg.in/yaml.v3"
 )
@@ -50,27 +49,4 @@ func tryParseYaml(filename string, values map[string]string) error {
 
 	dftJson(root, "", values)
 	return nil
-}
-
-func preParseYaml(values map[string]string) bool {
-	var fp = String("flagyaml", "", "yaml file for flag")
-
-	filename := getRawFlagValue("flagyaml")
-
-	if len(filename) > 0 {
-		err := tryParseYaml(filename, values)
-		if err != nil {
-			log.Fatalf("flagyaml load yaml file failed, [file=%s][err=%+v]", filename, err)
-		}
-		return true
-	}
-
-	filename = *fp
-	if len(filename) <= 0 {
-		return false
-	}
-
-	err := tryParseYaml(filename, values)
-	return err == nil
-
 }

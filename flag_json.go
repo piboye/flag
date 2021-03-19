@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 )
 
 func dftJson(root map[string]interface{}, prefix string, values map[string]string) {
@@ -49,31 +48,4 @@ func tryParseJson(filename string, values map[string]string) error {
 
 	dftJson(root, "", values)
 	return nil
-}
-
-func preParseJson(values map[string]string) bool {
-	var fp = String("flagjson", "", "json file for flag")
-	//var fp = String("flagtoml", "config.toml", "tomlfile for flag")
-
-	filename := getRawFlagValue("flagjson")
-
-	if len(filename) > 0 {
-		err := tryParseJson(filename, values)
-		if err != nil {
-			log.Fatalf("flagjson load json file failed, [file=%s][err=%+v]", filename, err)
-		}
-		return true
-	}
-
-	//flagfile := CommandLine.actual["flagtoml"]
-
-	//filename = flagfile.Value.String()
-	filename = *fp
-	if len(filename) <= 0 {
-		return false
-	}
-
-	err := tryParseJson(filename, values)
-	return err == nil
-
 }
