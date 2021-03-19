@@ -868,6 +868,7 @@ func (f *FlagSet) Var(value Value, name string, usage string) {
 			}
 		*/
 	}
+
 	if f.actual == nil {
 		f.actual = make(map[string]*Flag)
 	}
@@ -1073,7 +1074,7 @@ func (f *FlagSet) preParseOne() (bool, error) {
 // include the command name. Must be called after all flags in the FlagSet
 // are defined and before flags are accessed by the program.
 // The return value will be ErrHelp if -help or -h were set but not defined.
-func (f *FlagSet) PreParse(arguments []string) error {
+func (f *FlagSet) preParse(arguments []string) error {
 	f.args = arguments
 	for {
 		seen, err := f.preParseOne()
@@ -1096,11 +1097,6 @@ func (f *FlagSet) PreParse(arguments []string) error {
 		}
 	}
 	return nil
-}
-
-func PreParse() {
-	// Ignore errors; CommandLine is set for ExitOnError.
-	CommandLine.PreParse(os.Args[1:])
 }
 
 // Parse parses the command-line flags from os.Args[1:]. Must be called
@@ -1149,8 +1145,4 @@ func NewFlagSet(name string, errorHandling ErrorHandling) *FlagSet {
 func (f *FlagSet) Init(name string, errorHandling ErrorHandling) {
 	f.name = name
 	f.errorHandling = errorHandling
-}
-
-func init() {
-	PreParse()
 }

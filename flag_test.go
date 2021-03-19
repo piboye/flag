@@ -6,7 +6,6 @@ import (
 )
 
 var test = Bool("test", false, "test")
-var flagfile = String("flagfile", "flagfile", "flagfile")
 
 func init() {
 	//log.Printf("test=%+v", *test)
@@ -23,8 +22,9 @@ func TestBool(t *testing.T) {
 }
 
 func TestString(t *testing.T) {
+	var pf = String("pf", "flagfile", "flagfile")
 
-	if *flagfile != "flagfile" {
-		t.Errorf("bool default value failed!, [expect=flagfile] [cur=%+v]", *flagfile)
+	if *pf != "flagfile" {
+		t.Errorf("bool default value failed!, [expect=flagfile] [cur=%+v]", *pf)
 	}
 }

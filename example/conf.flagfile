@@ -1,0 +1,2 @@
+redis.addr="flagfile:127.0.0.1:6397"
+#redis.addr=127
