@@ -1047,8 +1047,13 @@ func (f *FlagSet) preParseOne() (bool, error) {
 	// It must have a value, which might be the next argument.
 	if !hasValue && len(f.args) > 0 {
 		// value is the next arg
-		hasValue = true
-		value, f.args = f.args[0], f.args[1:]
+		next := f.args[0]
+		if len(next) >= 1 && next[0] == '-' {
+			hasValue = false
+		} else {
+			hasValue = true
+			value, f.args = f.args[0], f.args[1:]
+		}
 	}
 
 	if f.values == nil {
