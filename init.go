@@ -1,6 +1,18 @@
 package flag
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
+
+func (fs *FlagSet) Config() []string {
+	cfg := make([]string, 0, 10)
+	fs.VisitAll(func(f *Flag) {
+		cfg = append(cfg, fmt.Sprintf("%s:%q", f.Name, f.Value.String()))
+	})
+
+	return cfg
+}
 
 func init() {
 
