@@ -61,7 +61,7 @@ func tryParseToml(filename string, values map[string]string) error {
 	return nil
 }
 
-func dumpTomlFlag(cfg map[string]string) {
+func dumpTomlFlag(cfg map[string]interface{}) {
 	root := pathToMap(cfg)
 	txt, _ := toml.Marshal(root)
 	fmt.Printf("%s\n", txt)

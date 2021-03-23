@@ -7,11 +7,6 @@ import (
 
 var g_flagdump = String("flagdump", "flag", "dump all flags value to stdout, support json|toml|yaml|flag|env")
 
-func dumpRawFlag(cfg map[string]string) {
-	for k, v := range cfg {
-		fmt.Printf("%s=%s\n", k, v)
-	}
-}
 func get_path_node(root map[string]interface{}, names []string) map[string]interface{} {
 	if len(names) < 2 {
 		return root
@@ -28,7 +23,7 @@ func get_path_node(root map[string]interface{}, names []string) map[string]inter
 	}
 }
 
-func pathToMap(cfg map[string]string) map[string]interface{} {
+func pathToMap(cfg map[string]interface{}) map[string]interface{} {
 	root := make(map[string]interface{})
 	for k, v := range cfg {
 		names := strings.Split(k, ".")
@@ -39,8 +34,14 @@ func pathToMap(cfg map[string]string) map[string]interface{} {
 	return root
 }
 
+func dumpRawFlag(cfg map[string]interface{}) {
+	for k, v := range cfg {
+		fmt.Printf("%s=%+v\n", k, v)
+	}
+}
+
 func dumpFlag() {
-	cfg := make(map[string]string)
+	cfg := make(map[string]interface{})
 	CommandLine.VisitAll(func(f *Flag) {
 		name := f.Name
 		if name == "flagdump" {
@@ -50,19 +51,11 @@ func dumpFlag() {
 		} else if name == "flagfile" {
 			return
 		}
-		v := f.Value.String()
 		if *g_flagdump == "env" {
-			cfg[f.Name] = v
+			cfg[f.Name] = "'" + f.Value.String() + "'"
 			return
 		}
-		if strings.HasPrefix(v, "\"") {
-			v = v[1:]
-		}
-
-		if strings.HasSuffix(v, "\"") {
-			v = v[0 : len(v)-1]
-		}
-		cfg[f.Name] = v
+		cfg[f.Name] = f.Value
 	})
 
 	switch *g_flagdump {

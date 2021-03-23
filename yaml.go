@@ -51,7 +51,7 @@ func tryParseYaml(filename string, values map[string]string) error {
 	return nil
 }
 
-func dumpYamlFlag(cfg map[string]string) {
+func dumpYamlFlag(cfg map[string]interface{}) {
 	root := pathToMap(cfg)
 	txt, _ := yaml.Marshal(root)
 	fmt.Printf("%s\n", txt)

@@ -50,7 +50,7 @@ func tryParseJson(filename string, values map[string]string) error {
 	return nil
 }
 
-func dumpJsonFlag(cfg map[string]string) {
+func dumpJsonFlag(cfg map[string]interface{}) {
 	root := pathToMap(cfg)
 	txt, _ := json.Marshal(root)
 	fmt.Printf("%s\n", txt)
