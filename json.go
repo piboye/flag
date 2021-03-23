@@ -49,3 +49,9 @@ func tryParseJson(filename string, values map[string]string) error {
 	dftJson(root, "", values)
 	return nil
 }
+
+func dumpJsonFlag(cfg map[string]string) {
+	root := pathToMap(cfg)
+	txt, _ := json.Marshal(root)
+	fmt.Printf("%s\n", txt)
+}

@@ -50,3 +50,9 @@ func tryParseYaml(filename string, values map[string]string) error {
 	dftJson(root, "", values)
 	return nil
 }
+
+func dumpYamlFlag(cfg map[string]string) {
+	root := pathToMap(cfg)
+	txt, _ := yaml.Marshal(root)
+	fmt.Printf("%s\n", txt)
+}
