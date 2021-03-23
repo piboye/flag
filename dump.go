@@ -65,6 +65,8 @@ func dumpFlag() {
 		dumpYamlFlag(cfg)
 	case "json":
 		dumpJsonFlag(cfg)
+	case "ini":
+		dumpIniFlag(cfg)
 	case "flag":
 		fallthrough
 	default:

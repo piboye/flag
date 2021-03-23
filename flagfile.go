@@ -72,6 +72,8 @@ func tryParseFile(filename string, values map[string]string) error {
 	ext := filepath.Ext(filename)
 	//log.Printf("ext:%s", ext)
 	switch ext {
+	case ".ini":
+		return tryParseIni(filename, values)
 	case ".json":
 		return tryParseJson(filename, values)
 	case ".yaml":
