@@ -1,10 +1,13 @@
 package flag
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"path/filepath"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 func readFlagString(data string) map[string]string {
@@ -110,4 +113,23 @@ func preParseFile(values map[string]string) bool {
 
 	err := tryParseFile(filename, values)
 	return err == nil
+}
+
+func dumpRawFlag(cfg map[string]interface{}) {
+	for k, v := range cfg {
+		fmt.Printf("%s=%+v\n", k, v)
+	}
+}
+
+func dumpEnvFlag(cfg map[string]interface{}) {
+	out := make(map[string]string)
+	for k, v := range cfg {
+		out[k] = v.(Value).String()
+	}
+	txt, err := godotenv.Marshal(out)
+	if err != nil {
+		return
+	}
+
+	fmt.Printf("%s\n", txt)
 }

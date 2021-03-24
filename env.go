@@ -1,9 +1,10 @@
 package flag
 
 import (
-	"io/ioutil"
 	"os"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 var flagenv = Bool("flagenv", true, "parse flag from env var or .env file")
@@ -13,18 +14,7 @@ func preParseEnv(values map[string]string) bool {
 		return false
 	}
 
-	data, err := ioutil.ReadFile(".env")
-	if err == nil {
-		str := string(data)
-		new_vals := readFlagString(str)
-		//log.Printf("map env %+v", new_vals)
-
-		for k, v := range new_vals {
-			os.Setenv(k, v)
-			k = strings.ReplaceAll(k, ".", "__")
-			os.Setenv(k, v)
-		}
-	}
+	godotenv.Load(".env")
 
 	for _, e := range os.Environ() {
 		pair := strings.SplitN(e, "=", 2)

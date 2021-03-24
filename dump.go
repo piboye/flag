@@ -1,7 +1,6 @@
 package flag
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -34,12 +33,6 @@ func pathToMap(cfg map[string]interface{}) map[string]interface{} {
 	return root
 }
 
-func dumpRawFlag(cfg map[string]interface{}) {
-	for k, v := range cfg {
-		fmt.Printf("%s=%+v\n", k, v)
-	}
-}
-
 func dumpFlag() {
 	cfg := make(map[string]interface{})
 	CommandLine.VisitAll(func(f *Flag) {
@@ -51,14 +44,12 @@ func dumpFlag() {
 		} else if name == "flagfile" {
 			return
 		}
-		if *g_flagdump == "env" {
-			cfg[f.Name] = "'" + f.Value.String() + "'"
-			return
-		}
 		cfg[f.Name] = f.Value
 	})
 
 	switch *g_flagdump {
+	case "env":
+		dumpEnvFlag(cfg)
 	case "toml":
 		dumpTomlFlag(cfg)
 	case "yaml":
