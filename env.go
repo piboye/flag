@@ -8,10 +8,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var flagenv = Bool("flagenv", true, "parse flag from env var or .env file")
-
 func preParseEnv(values map[string]string) bool {
-	if !*flagenv {
+	if !*g_flagenv {
 		return false
 	}
 

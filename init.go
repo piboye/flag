@@ -22,6 +22,10 @@ func (fs *FlagSet) Config() []string {
 	return cfg
 }
 
+var flagfile = String("flagfile", "flagfile", "parse flag from file,  support file-format: flagifle|conf.json|conf.toml|conf.yaml")
+var g_flagdump = String("flagdump", "flag", "dump all flags value to stdout, support json|toml|yaml|flag|env")
+var g_flagenv = Bool("flagenv", true, "parse flag from env var or .env file")
+
 func init() {
 
 	if CommandLine.values == nil {

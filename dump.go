@@ -4,8 +4,6 @@ import (
 	"strings"
 )
 
-var g_flagdump = String("flagdump", "flag", "dump all flags value to stdout, support json|toml|yaml|flag|env")
-
 func get_path_node(root map[string]interface{}, names []string) map[string]interface{} {
 	if len(names) < 2 {
 		return root

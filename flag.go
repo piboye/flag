@@ -1104,13 +1104,14 @@ func (f *FlagSet) preParse(arguments []string) error {
 // after all flags are defined and before flags are accessed by the program.
 func Parse() {
 	// Ignore errors; CommandLine is set for ExitOnError.
-	parsed := CommandLine.parsed
-	CommandLine.Parse(os.Args[1:])
-	if !parsed {
-		if hasFlag("flagdump") {
-			dumpFlag()
-			os.Exit(0)
-		}
+	//CommandLine.Parse(os.Args[1:])
+	if hasFlag("flagdump") {
+		dumpFlag()
+		os.Exit(0)
+	}
+	if hasFlag("help") {
+		commandLineUsage()
+		os.Exit(0)
 	}
 }
 
