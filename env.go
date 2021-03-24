@@ -1,6 +1,7 @@
 package flag
 
 import (
+	"fmt"
 	"os"
 	"strings"
 
@@ -44,4 +45,22 @@ func preParseEnv(values map[string]string) bool {
 	}
 
 	return true
+}
+
+func dumpEnvFlag(cfg map[string]interface{}) {
+	out := make(map[string]string)
+	for k, v := range cfg {
+
+		v1 := v.(Value).String()
+		if strings.Index(k, ".") >= 0 {
+			k = strings.ReplaceAll(k, ".", "__")
+		}
+		out[k] = v1
+	}
+	txt, err := godotenv.Marshal(out)
+	if err != nil {
+		return
+	}
+
+	fmt.Printf("%s\n", txt)
 }
