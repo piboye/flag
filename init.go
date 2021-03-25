@@ -23,7 +23,7 @@ func (fs *FlagSet) Config() []string {
 }
 
 var flagfile = String("flagfile", "flagfile", "parse flag from file,  support file-format: flagifle|conf.json|conf.toml|conf.yaml")
-var g_flagdump = String("flagdump", "flag", "dump all flags value to stdout, support json|toml|yaml|flag|env")
+var _ = String("flagdump", "flag", "dump all flags value to stdout, support json|toml|yaml|flag|env")
 var g_flagenv = Bool("flagenv", true, "parse flag from env var or .env file")
 
 func init() {
@@ -34,17 +34,7 @@ func init() {
 
 	values := CommandLine.values
 
-	preParseFile(values)
 	preParseEnv(values)
+	preParseFile(values)
 	CommandLine.preParse(os.Args[1:])
-
-	/*
-		for _, arg := range os.Args[1:] {
-			if arg == "-h" || arg == "-help" {
-				commandLineUsage()
-				return
-			}
-		}
-	*/
-
 }
