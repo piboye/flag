@@ -1114,7 +1114,7 @@ func (f *FlagSet) preParse(arguments []string) error {
 func Parse() {
 	// Ignore errors; CommandLine is set for ExitOnError.
 	//CommandLine.Parse(os.Args[1:])
-	if v, ok := CommandLine.flags["flagdum"]; ok {
+	if v, ok := CommandLine.flags["flagdump"]; ok {
 		dumpFlag(v)
 		os.Exit(0)
 	}
