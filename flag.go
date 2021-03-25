@@ -300,7 +300,7 @@ type FlagSet struct {
 	errorHandling ErrorHandling
 	output        io.Writer // nil means stderr; use Output() accessor
 	values        map[string]string
-	rest          map[string]int
+	flags         map[string]string
 }
 
 // A Flag represents the state of a flag.
@@ -836,6 +836,12 @@ func (f *FlagSet) Var(value Value, name string, usage string) {
 	}
 
 	f.formal[name] = flag
+
+	//add value to flag
+	if f.actual == nil {
+		f.actual = make(map[string]*Flag)
+	}
+
 	txt, hasValue := f.values[name]
 
 	if fv, ok := flag.Value.(boolFlag); ok && fv.IsBoolFlag() { // special case: doesn't need an arg
@@ -869,9 +875,6 @@ func (f *FlagSet) Var(value Value, name string, usage string) {
 		*/
 	}
 
-	if f.actual == nil {
-		f.actual = make(map[string]*Flag)
-	}
 	f.actual[name] = flag
 }
 
@@ -1062,10 +1065,16 @@ func (f *FlagSet) preParseOne() (bool, error) {
 		f.values = make(map[string]string)
 	}
 
+	if f.flags == nil {
+		f.flags = make(map[string]string)
+	}
+
 	if hasValue {
 		f.values[name] = value
+		f.flags[name] = value
 	} else {
 		f.values[name] = ""
+		f.flags[name] = ""
 	}
 
 	return true, nil
@@ -1105,11 +1114,16 @@ func (f *FlagSet) preParse(arguments []string) error {
 func Parse() {
 	// Ignore errors; CommandLine is set for ExitOnError.
 	//CommandLine.Parse(os.Args[1:])
-	if hasFlag("flagdump") {
-		dumpFlag()
+	if v, ok := CommandLine.flags["flagdum"]; ok {
+		dumpFlag(v)
 		os.Exit(0)
 	}
-	if hasFlag("help") {
+
+	if _, ok := CommandLine.flags["help"]; ok {
+		commandLineUsage()
+		os.Exit(0)
+	}
+	if _, ok := CommandLine.flags["h"]; ok {
 		commandLineUsage()
 		os.Exit(0)
 	}

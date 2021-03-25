@@ -16,7 +16,7 @@ R:
 		if s[1] == '-' {
 			numMinuses++
 			if len(s) == 2 { // "--" terminates the flags
-				break
+				return false
 			}
 		}
 		name := s[numMinuses:]
@@ -36,17 +36,14 @@ R:
 			}
 		}
 
+		if name == target {
+			return true
+		}
+
 		i += 1
 		if i >= len(args) {
-			break
+			return false
 		}
-
-		s = args[i]
-
-		if len(s) < 1 || s[0] == '-' {
-			break
-		}
-		return true
 	}
 
 	return false

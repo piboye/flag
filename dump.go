@@ -31,7 +31,7 @@ func pathToMap(cfg map[string]interface{}) map[string]interface{} {
 	return root
 }
 
-func dumpFlag() {
+func dumpFlag(dumptype string) {
 	cfg := make(map[string]interface{})
 	CommandLine.VisitAll(func(f *Flag) {
 		name := f.Name
@@ -45,7 +45,7 @@ func dumpFlag() {
 		cfg[f.Name] = f.Value
 	})
 
-	switch *g_flagdump {
+	switch dumptype {
 	case "env":
 		dumpEnvFlag(cfg)
 	case "toml":
