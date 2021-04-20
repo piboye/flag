@@ -95,8 +95,11 @@ R:
 		if len(s) < 1 || s[0] == '-' {
 			break
 		}
-		result = s
-		break
+
+		if name == target {
+			result = s
+			break
+		}
 	}
 
 	return result

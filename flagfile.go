@@ -89,6 +89,7 @@ func tryParseFile(filename string, values map[string]string) error {
 func preParseFile(values map[string]string) bool {
 	filename := getRawFlagValue("flagfile")
 
+	//log.Printf("flagfile:%s", filename)
 	if len(filename) > 0 {
 		for _, fn := range strings.Split(filename, ",") {
 			if len(fn) <= 0 {
