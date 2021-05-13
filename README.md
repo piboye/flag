@@ -45,6 +45,7 @@ golang 的 package 就是module,  import 表明模块之间的依赖。如果不
 - flagfile[=flagfile]
 
     读取 flagfile 配置文件; 用户指定文件名的时候，可以根据文件后缀选择不同的解析器， 支持 Yaml, Toml, Json, Jsonnet, Ini, env, flagfile格式; 支持读取多个文件配置文件(使用逗号分隔多个文件)
+	`-` 从标准输入中读取， 格式是json
 
 - flagdump[=flag|json|yaml|toml|ini|env]
 
