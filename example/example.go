@@ -7,14 +7,14 @@ import (
 )
 
 var testb = flag.Bool("testb", true, "test bool")
+var addr = ""
 
 func init() {
-	var addr = ""
 	flag.StringVar(&addr, "redis.addr", "empty", "redis address")
-	log.Printf("redis addr:%s", addr)
-	log.Printf("testb %t", *testb)
 }
 
 func main() {
 	flag.Parse()
+	log.Printf("redis addr:%s", addr)
+	log.Printf("testb %t", *testb)
 }

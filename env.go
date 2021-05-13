@@ -30,7 +30,7 @@ func preParseEnv(values map[string]string) bool {
 		}
 		values[k] = v
 
-		if strings.Index(k, "__") < 0 {
+		if !strings.Contains(k, "__") {
 			continue
 		}
 
@@ -50,7 +50,7 @@ func dumpEnvFlag(cfg map[string]interface{}) {
 	for k, v := range cfg {
 
 		v1 := v.(Value).String()
-		if strings.Index(k, ".") >= 0 {
+		if strings.Contains(k, ".") {
 			k = strings.ReplaceAll(k, ".", "__")
 		}
 		out[k] = v1
