@@ -84,6 +84,9 @@ func tryParseFile(filename string, values map[string]string) error {
 	case ".toml":
 		return tryParseToml(filename, values)
 	default:
+		if filename == "-" {
+			return tryParseJson(filename, values)
+		}
 		return tryParseFlagFile(filename, values)
 	}
 }
@@ -91,7 +94,6 @@ func tryParseFile(filename string, values map[string]string) error {
 func preParseFile(values map[string]string) bool {
 	filename := getRawFlagValue("flagfile")
 
-	//log.Printf("flagfile:%s", filename)
 	if len(filename) > 0 {
 		for _, fn := range strings.Split(filename, ",") {
 			if len(fn) <= 0 {

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 
 	"github.com/google/go-jsonnet"
 )
@@ -39,9 +40,15 @@ func dftJson(root map[string]interface{}, prefix string, values map[string]strin
 }
 
 func tryParseJson(filename string, values map[string]string) error {
-	data, err := ioutil.ReadFile(filename)
-	if err != nil {
-		return err
+	var data []byte
+	var err error
+	if filename == "-" {
+		data, err = ioutil.ReadAll(os.Stdin)
+	} else {
+		data, err = ioutil.ReadFile(filename)
+		if err != nil {
+			return err
+		}
 	}
 
 	root := make(map[string]interface{})
