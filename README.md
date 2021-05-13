@@ -44,7 +44,7 @@ golang 的 package 就是module,  import 表明模块之间的依赖。如果不
 	flag 从 .env 文件和环境变量中获取flag配置项, `微服务12条建议把环境当成配置`; k8s环境下运行， 可以把ConfigMap 映射成环境变量
 - flagfile[=falgfile]
 
-    读取 flagfile 配置文件; 用户指定文件名的时候，可以根据文件后缀选择不同的解析器， 支持 Yaml, Toml, Json, Ini, env, flagfile格式; 支持读取多个文件配置文件(使用逗号分隔多个文件)
+    读取 flagfile 配置文件; 用户指定文件名的时候，可以根据文件后缀选择不同的解析器， 支持 Yaml, Toml, Json, Jsonnet, Ini, env, flagfile格式; 支持读取多个文件配置文件(使用逗号分隔多个文件)
 
 - flagdump[=flag|json|yaml|toml|ini|env]
 
