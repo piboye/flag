@@ -15,6 +15,7 @@ func init() {
 
 func main() {
 	flag.Parse()
-	log.Printf("redis addr:%s", addr)
-	log.Printf("testb %t", *testb)
+	log.Printf("redis addr:%s\n", addr)
+	log.Printf("testb %t\n", *testb)
+	log.Printf("hookable %t\n", hookable)
 }

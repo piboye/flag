@@ -2,7 +2,6 @@ package flag
 
 import (
 	"testing"
-	//flag "github.com/piboye/flag"
 )
 
 var test = Bool("test", false, "test")
