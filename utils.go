@@ -1,6 +1,8 @@
 package flag
 
-import "os"
+import (
+	"os"
+)
 
 func hasFlag(target string) bool {
 	args := os.Args[1:]
@@ -92,11 +94,10 @@ R:
 
 		s = args[i]
 
-		if len(s) < 1 || s[0] == '-' {
-			break
-		}
-
 		if name == target {
+			if len(s) > 1 && s[0] == '-' {
+				break
+			}
 			result = s
 			break
 		}
