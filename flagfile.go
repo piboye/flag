@@ -79,6 +79,8 @@ func tryParseFile(filename string, values map[string]string) error {
 		return tryParseJson(filename, values)
 	case ".jsonnet":
 		return tryParseJsonnet(filename, values)
+	case ".cue":
+		return tryParseCue(filename, values)
 	case ".yaml":
 		return tryParseYaml(filename, values)
 	case ".toml":

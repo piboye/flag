@@ -3,6 +3,7 @@ module github.com/piboye/flag
 go 1.15
 
 require (
+	cuelang.org/go v0.4.0 // indirect
 	github.com/agiledragon/gomonkey v2.0.2+incompatible // indirect
 	github.com/go-ini/ini v1.62.0
 	github.com/google/go-jsonnet v0.17.0
