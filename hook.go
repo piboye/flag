@@ -1,3 +1,6 @@
+//go:build amd64
+// +build amd64
+
 package flag
 
 import (
@@ -11,8 +14,6 @@ inline 了 flag 的函数， 这些hook 无效
 go build 的时候需要加上 -gcflags='flag=-l'
 */
 
-// +build amd64
-
 func init() {
 	gomonkey.ApplyFunc(oflag.BoolVar, BoolVar)
 	gomonkey.ApplyFunc(oflag.StringVar, StringVar)
@@ -25,5 +26,5 @@ func init() {
 	gomonkey.ApplyFunc(oflag.Int, Int)
 	gomonkey.ApplyFunc(oflag.Int64, Int64)
 	gomonkey.ApplyFunc(oflag.Uint64, Uint64)
-	gomonkey.ApplyFunc(oflag.Func, Func)
+	//gomonkey.ApplyFunc(oflag.Func, Func)
 }
